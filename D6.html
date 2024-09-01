@@ -30,6 +30,20 @@
       .myHeading {
         color: #ff00d6;
       }
+      table {
+        width: 100%;
+      }
+      th {
+        font-size: 50px;
+        border-right: 1px solid black;
+      }
+      td {
+        text-align: center;
+        border-bottom: 1px solid black;
+      }
+      td h3 {
+        font-size: 30px;
+      }
     </style>
   </head>
 
@@ -76,124 +90,275 @@
     </footer>
     <script>
       /* ESERCIZIO 1
-       Scrivi una funzione per cambiare il titolo della pagina in qualcos'altro
-    */
+         Scrivi una funzione per cambiare il titolo della pagina in qualcos'altro
+      */
 
       const title = document.querySelector("h1");
-      const changeTitle = function () {
-        title.innerText = "Hello everyone";
-      };
+
+      function changeTitle() {
+        title.innerText = "Esercizi Su DOM Manipulation";
+      }
 
       changeTitle();
 
       /* ESERCIZIO 2
-       Scrivi una funzione per aggiungere al titolo della pagina una classe "myHeading"
-    */
+         Scrivi una funzione per aggiungere al titolo della pagina una classe "myHeading"
+      */
 
-      const addClassToTitle = function () {
+      function addClass() {
         title.classList = "myHeading";
-      };
+      }
 
-      addClassToTitle();
+      addClass();
 
       /* ESERCIZIO 3
-       Scrivi una funzione che cambi il testo dei p figli di un div
-      */
+         Scrivi una funzione che cambi il testo dei p figli di un div
+        */
 
-      const paragraphs = document.querySelector("div > p");
-      const changePcontent = function () {
-        paragraphs.innerText = "Just change every p text";
-      };
+      const divChildrenP = document.querySelectorAll("div > p");
+      function changeText() {
+        divChildrenP.forEach((p) => {
+          p.innerText = "Cambiare tutti i testi di un tag <p> figlio di un <div>";
+        });
+      }
 
-      changePcontent();
+      changeText();
 
       /* ESERCIZIO 4
-       Scrivi una funzione che cambi la proprietà href di ogni link (tranne quello nel footer) con il valore https://www.google.com
-      */
+         Scrivi una funzione che cambi la proprietà href di ogni link (tranne quello nel footer) con il valore https://www.google.com
+        */
 
-      const links = document.querySelector("a");
-      const changeUrls = function () {
-        links.href = "https://www.google.com";
-      };
+      const aLink = document.querySelectorAll("a:not(footer a)");
 
-      changeUrls();
+      function changeLinkAttribute() {
+        aLink.forEach((link) => {
+          link.href = "https://www.google.com";
+        });
+      }
+
+      changeLinkAttribute();
 
       /* ESERCIZIO 5
-       Scrivi una funzione che aggiunga un nuovo elemento lista alla seconda lista non ordinata
-    */
+         Scrivi una funzione che aggiunga un nuovo elemento lista alla seconda lista non ordinata
+      */
 
-      const secondList = document.getElementsByTagName("ul");
+      const secondList = document.getElementById("secondList");
 
-      const addToTheSecond = function () {
-        let item = document.createElement("li");
-        item.innerText = "Another Item";
-        secondList[1].appendChild(item);
-      };
+      function addNewElement() {
+        let newItem = document.createElement("li");
+        newItem.innerText = "4th";
+        secondList.appendChild(newItem);
+      }
 
-      addToTheSecond();
+      addNewElement();
 
       /* ESERCIZIO 6
-       Scrivi una funzione che aggiunga un paragrafo al primo div
-    */
+      Scrivi una funzione che aggiunga un paragrafo al primo div
+      */
 
-      const divisory = document.querySelectorAll("div");
+      const firstDiv = document.querySelector("div");
 
-      const addParagraph = function () {
-        let para = document.createElement("p");
-        para.innerText = "A new paragraph";
-        divisory[0].appendChild(para);
-      };
+      function addParagraph() {
+        let par1 = document.createElement("p");
+        par1.innerText = "Con .innerText aggiungi un qualsiasi testo ad un elemento";
+        firstDiv.appendChild(par1);
+      }
 
       addParagraph();
 
       /* ESERCIZIO 7
-       Scrivi una funzione che faccia scomparire la prima lista non ordinata
-    */
-
-      const hideFirstUl = function () {};
-
-      /* ESERCIZIO 8 
-       Scrivi una funzione che renda verde il background di ogni lista non ordinata
+      Scrivi una funzione che faccia scomparire la prima lista non ordinata
       */
 
-      const paintItGreen = function () {};
+      let firstList = document.getElementById("firstList");
+
+      function letDisappear() {
+        firstList.remove();
+      }
+
+      letDisappear();
+
+      /* ESERCIZIO 8
+         Scrivi una funzione che renda verde il background di ogni lista non ordinata
+        */
+
+      const everyList = document.querySelectorAll("ul");
+
+      function getGreenBckg() {
+        everyList.forEach((list) => {
+          list.style.background = "lightgreen";
+        });
+      }
+      getGreenBckg();
 
       /* ESERCIZIO 9
-       Scrivi una funzione che rimuova l'ultima lettera dall'h1 ogni volta che l'utente lo clicca
-      */
+         Scrivi una funzione che rimuova l'ultima lettera dall'h1 ogni volta che l'utente lo clicca
+        */
 
-      const makeItClickable = function () {};
+      function removeLast() {
+        let titleArr = title.innerText.split("");
+        title.onclick = function () {
+          titleArr.pop();
+          title.innerText = titleArr.join("");
+        };
+      }
+
+      removeLast();
 
       /* ESERCIZIO 10
-       Crea una funzione che, al click sul footer, riveli l'URL del link interno come contenuto di un alert()
-      */
+         Crea una funzione che, al click sul footer, riveli l'URL del link interno come contenuto di un alert()
+        */
 
-      const revealFooterLink = function () {};
+      const footer = document.querySelector("footer");
+      const footerLink = document.querySelector("footer a");
+
+      const revealFooterLink = function () {
+        footer.addEventListener("click", () => {
+          alert(footerLink.href);
+        });
+      };
+
+      revealFooterLink();
 
       /* ESERCIZIO 11
-       Crea una funzione che crei una tabella nell'elemento con id "tableArea". 
-       La tabella avrà 5 elementi e questa struttura: immagine, nome prodotto, quantità, prezzo
-    */
+         Crea una funzione che crei una tabella nell'elemento con id "tableArea".
+         La tabella avrà 5 elementi e questa struttura: immagine, nome prodotto, quantità, prezzo
+      */
 
-      const generateTable = function () {};
+      let products = [
+        {
+          image:
+            "https://plus.unsplash.com/premium_photo-1720886073981-f975d3dc93f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyfHx8ZW58MHx8fHx8",
+          name: "Mountain",
+          quantity: 10,
+          price: 20.99,
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1725072731452-a1b7b1e322f8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw5fHx8ZW58MHx8fHx8",
+          name: "WaterFall",
+          quantity: 7,
+          price: 26.8,
+        },
+        {
+          image:
+            "https://plus.unsplash.com/premium_photo-1722178429928-caa36778a04b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxOXx8fGVufDB8fHx8fA%3D%3D",
+          name: "Rainbow",
+          quantity: 25,
+          price: 56,
+        },
+        {
+          image:
+            "https://images.unsplash.com/photo-1724715060079-8ce6c4af6e09?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyNnx8fGVufDB8fHx8fA%3D%3D",
+          name: "Universe",
+          quantity: 3,
+          price: 14.3,
+        },
+        {
+          image:
+            "https://plus.unsplash.com/premium_photo-1697778136245-d0d67de916ef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw2NHx8fGVufDB8fHx8fA%3D%3D",
+          name: "Forest",
+          quantity: 68,
+          price: 33.75,
+        },
+      ];
+
+      let tableAreaDiv = document.getElementById("tableArea");
+      tableAreaDiv.style.width = "100%";
+
+      const generateTable = function () {
+        //Create table tag
+        const table = document.createElement("table");
+        //Create row tag
+        const row = document.createElement("tr");
+
+        //Create th tag for every property
+        const thImage = document.createElement("th");
+        thImage.innerText = "Immagine";
+
+        const thName = document.createElement("th");
+        thName.innerText = "Name";
+
+        const thQuantity = document.createElement("th");
+        thQuantity.innerText = "Quantity";
+
+        const thPrice = document.createElement("th");
+        thPrice.innerText = "Price";
+
+        //Append th elements to tr tag
+        row.appendChild(thImage);
+        row.appendChild(thName);
+        row.appendChild(thQuantity);
+        row.appendChild(thPrice);
+
+        //Append tr tag to table tag
+        table.appendChild(row);
+        //Append table tag to div
+        tableAreaDiv.appendChild(table);
+
+        //Add products to table
+
+        for (let i = 0; i < products.length; i++) {
+          //Create a row for every element
+          let addRow = document.createElement("tr");
+
+          //Add Pictures
+          let tdImage = document.createElement("td");
+          tdImage.innerHTML = `<img src=${products[i].image} alt="description" height="200px" width="200px">`;
+
+          let tdName = document.createElement("td");
+          tdName.innerHTML = `<h3>${products[i].name}</h3>`;
+
+          let tdQuantity = document.createElement("td");
+          tdQuantity.innerHTML = `<h3>${products[i].quantity}</h3>`;
+
+          let tdPrice = document.createElement("td");
+          tdPrice.innerHTML = `<h3>${products[i].price}$</h3>`;
+
+          addRow.appendChild(tdImage);
+          addRow.appendChild(tdName);
+          addRow.appendChild(tdQuantity);
+          addRow.appendChild(tdPrice);
+          table.appendChild(addRow);
+        }
+      };
+
+      generateTable();
 
       /* ESERCIZIO 12
-       Crea una funzione che aggiunga una riga alla tabella precedentemente creata e fornisca i dati necessari come parametri
-    */
+         Crea una funzione che aggiunga una riga alla tabella precedentemente creata e fornisca i dati necessari come parametri
+      */
 
       const addRow = function () {};
 
       /* ESERCIZIO 14
-      Crea una funzione che nasconda le immagini della tabella quando eseguita
-    */
+        Crea una funzione che nasconda le immagini della tabella quando eseguita
+      */
 
       const hideAllImages = function () {};
 
       /* EXTRA ESERCIZIO 15
-      Crea una funzione che cambi il colore del h2 con id "changeMyColor" con un colore random ad ogni click ricevuto
-    */
+        Crea una funzione che cambi il colore del h2 con id "changeMyColor" con un colore random ad ogni click ricevuto
+      */
 
-      const changeColorWithRandom = function () {};
+      const h2El = document.querySelectorAll("h2");
+      h2El.forEach((singleh2) => {
+        singleh2.setAttribute("id", "changeMyColor");
+
+        singleh2.addEventListener("click", () => {
+          singleh2.style.color = changeColorWithRandom();
+        });
+      });
+
+      const changeColorWithRandom = function () {
+        let colorsCode = "0123456789abcdef";
+        let color = "#";
+
+        for (let i = 0; i < 6; i++) {
+          color += colorsCode[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      };
     </script>
   </body>
 </html>
